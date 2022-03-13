@@ -15,7 +15,7 @@ import setuptools
 
 setuptools.setup(
     name='supertld',
-    version='0.0.1',
+    version='0.0.2',
     description='SuperTLD: Detecting TAD-like domains from RNA-associated interactions',
     # long_description=long_description,  # loads your README.md
     # long_description_content_type="text/markdown",  # README.md is of type 'markdown'

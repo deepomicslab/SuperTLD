@@ -11,28 +11,32 @@ import numpy as np
 
 def asym_to_sym(matrix, mode="col", extraNorm=False, hic=None, alpha=1):
     if mode == "row":
-        if hic != None:
+        if hic and alpha:
             hic_matrix = acquire_hic(hic)
             if len(matrix) != len(hic_matrix):
                 raise ValueError("RNA-associated data and hic's row length doesn't match.")
             # matrix = np.append(np.sqrt(alpha) * min_max_norm(matrix), np.sqrt(1-alpha)*hic_matrix, axis=1)
             matrix = np.append(np.sqrt(alpha) * matrix, np.sqrt(1 - alpha) * hic_matrix, axis=1)
+        elif hic:
+            matrix = np.loadtxt(hic)
         oldSum = np.sum(matrix)  # sum of the input matrix
         print("Matrix sum for original matrix: {}".format(oldSum))
         matrix = np.dot(matrix, matrix.T)
     elif mode == "col":
-        if hic != None:
+        if hic and alpha:
             hic_matrix = acquire_hic(hic)
             if len(matrix[0]) != len(hic_matrix):
                 raise ValueError("RNA-associated data and hic's column length doesn't match.")
             # matrix = np.append(np.sqrt(alpha) * min_max_norm(matrix), np.sqrt(1-alpha)*hic_matrix.T, axis=0)
             matrix = np.append(np.sqrt(alpha) * matrix, np.sqrt(1 - alpha) * hic_matrix.T, axis=0)
+        elif hic:
+            matrix = np.loadtxt(hic)
         oldSum = np.sum(matrix)  # sum of the input matrix
         print("Matrix sum for original matrix: {}".format(oldSum))
         matrix = np.dot(matrix.T, matrix)
     else:
         raise ValueError("the setting of mode do not valid")
-    if extraNorm:
+    if extraNorm and alpha:
         norm_matrix = BisectionNorm(matrix, oldSum).norm()
         try:
             if norm_matrix == None:
@@ -41,7 +45,7 @@ def asym_to_sym(matrix, mode="col", extraNorm=False, hic=None, alpha=1):
         except:
             pass
         matrix = norm_matrix
-    else:
+    elif alpha:
         matrix = svd_process(matrix, power=1)
     return matrix
 
