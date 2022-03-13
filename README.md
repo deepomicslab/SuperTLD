@@ -1,6 +1,6 @@
 # SuperTLD
 
-![Flow_chart_of_SuperTLD](./overview.pdf)
+![Flow_chart_of_SuperTLD](overview.jpg)
 
 SuperTLD is a novel method proposed to infer the hierarchical structure of TAD-like domains (TLDs) from RNA-associated interactions (RAIs). 
 SuperTLD comprises the data imputation and hierarchical domain detection. 
