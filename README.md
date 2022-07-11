@@ -24,7 +24,7 @@ pip install supertld
 ## Instructions
 In this section, we show how to run SuperTLD with the example data.
 ### Data preparation 
-The example data can be downloaded from the [zenode repository](https://zenodo.org/record/5501849#.YT3xwI4zaUk).
+The example data can be downloaded from the [zenode repository](https://zenodo.org/record/6817547).
 Download the example_data.zip and uncompress the example_data.zip into the directory of `./data`.
 
 ### Run SuperTLD
@@ -50,6 +50,8 @@ _, TLDresult = model.pipeline(inputMatrix=raiMap, outpath=outputFile)
 hicMap = "./data/HEK293T_chr22_100KR_matrix.txt"    
 bed = ["./data/CTCF_ENCFF206AQV.bed"]   
 bedgraph = ["./data/H3K27ME3_hg38_GSM3907592.bedgraph", "./data/H3K36me3_hg38_ENCSR910LIE.bedgraph"]
+# detect TADs from Hi-C contact map, if necessary
+model.Perform_SuperTAD(inputPath=hicMap)
 # create the evaluate object
 evaluateModel = supertld.Evaluate(chrom=raiChrom, resolution=raiResolution, hicPath=hicMap, bed=bed, bedgraph=bedgraph)
 # run the evaluation 
